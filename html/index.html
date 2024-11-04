@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taco Box</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <!-- welcome -->
+    <div class="welcome">
+      <h1>Welcome to Taco Box</h1>
+      <p>We sincerely invite you to enjoy our delicious dishes and experience a unique dining atmosphere.</p>
+      <div class="scroll-down">&#x2193;</div>
+    </div>
+
+    <!-- menu -->
+    <div class="container">
+      <div class="cart">
+        <h2>Cart</h2>
+        <ul class="cart-items"></ul>
+        <p class="cart-empty">Your cart is empty. Start adding some delicious tacos!</p>
+        <p class="cart-total">
+          Total: £
+          <span>0.00</span>
+        </p>
+        <div class="discount-section">
+          <input type="text" id="discountCode" placeholder="Enter discount code" />
+          <button id="applyDiscount">Apply Discount</button>
+          <p id="discountMessage"></p>
+          <!-- Message to show discount status -->
+        </div>
+      </div>
+
+      <div class="favorites">
+        <h2>Favorites</h2>
+        <ul class="favorite-items"></ul>
+        <p class="favorites-empty">No favorites yet. Add some tacos you love!</p>
+      </div>
+
+      <!-- Controls Section -->
+      <div class="controls-section">
+        <div class="sort-controls">
+          <label for="sortOptions">Sort by:</label>
+          <select id="sortOptions">
+            <option value="category">Category</option>
+            <option value="priceAsc">Price: Low to High</option>
+            <option value="priceDesc">Price: High to Low</option>
+          </select>
+        </div>
+        <div class="search-bar">
+          <input type="text" id="searchInput" placeholder="Search for tacos by name or category..." />
+        </div>
+      </div>
+
+      <div class="menu"></div>
+    </div>
+
+    <!-- extras popup -->
+    <div class="popup" id="confirmationPopup">
+      <div class="popup-content">
+        <h3>Would you like to add any extras?</h3>
+        <button id="yesExtras">Yes</button>
+        <button id="noExtras">No, thanks</button>
+      </div>
+    </div>
+
+    <div class="popup" id="extrasPopup">
+      <div class="popup-content">
+        <h3>Select Extras</h3>
+        <div class="extras-list"></div>
+        <button id="addToCartWithExtras">Add to Cart</button>
+      </div>
+    </div>
+
+    <script type="module" src="/js/index.js" />
+  </body>
+</html>
