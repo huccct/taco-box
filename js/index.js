@@ -345,4 +345,6 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
 sortOptions.addEventListener('change', sortMenu);
 
 // 初始渲染菜单
-sortMenu();
+document.addEventListener('DOMContentLoaded', () => {
+  sortMenu(); // Initial render
+});
