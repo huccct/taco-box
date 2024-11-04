@@ -1,5 +1,3 @@
-import { menuItems } from './menu.js';
-
 const menuElement = document.querySelector('.menu');
 const cartItems = document.querySelector('.cart-items');
 const cartTotal = document.querySelector('.cart-total span');

@@ -1,4 +1,4 @@
-export const menuItems = [
+const menuItems = [
   {
     name: 'Veggie Nachos',
     price: 699, // 6.99 GBP
