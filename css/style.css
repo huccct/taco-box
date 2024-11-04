@@ -33,7 +33,6 @@ html {
   background-image: url(https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/bg.7parxs9ra.webp);
   background-size: cover;
   background-position: center;
-  color: #ffd700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -41,12 +40,14 @@ html {
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  color: #ffd700;
 }
 
 .welcome p {
   font-size: 1.2rem;
   max-width: 600px;
   margin: 0 auto;
+  color: #fff;
   margin-bottom: 2rem;
 }
 
