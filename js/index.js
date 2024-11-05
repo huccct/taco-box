@@ -1,3 +1,4 @@
+// Select necessary elements
 const menuElement = document.querySelector('.menu');
 const cartItems = document.querySelector('.cart-items');
 const cartTotal = document.querySelector('.cart-total span');
@@ -6,13 +7,18 @@ const confirmationPopup = document.getElementById('confirmationPopup');
 const yesExtrasButton = document.getElementById('yesExtras');
 const noExtrasButton = document.getElementById('noExtras');
 const applyDiscount = document.getElementById('applyDiscount');
-
 const discountMessage = document.getElementById('discountMessage');
 const sortOptions = document.getElementById('sortOptions');
 const searchInput = document.getElementById('searchInput');
 const favoriteItemsList = document.querySelector('.favorite-items');
 const favoritesEmptyMessage = document.querySelector('.favorites-empty');
+const cartElement = document.querySelector('.cart');
+const checkoutButton = document.querySelector('.checkout-button');
+const extraTotalElement = document.querySelector('#extraTotal');
+const discountSection = document.querySelector('.discount-section');
+const cartTotalElement = document.querySelector('.cart-total');
 
+// Define initial variables
 let discountPercentage = 0;
 let cart = [];
 let currentItem = null; // Track the current item for adding extras
@@ -22,17 +28,19 @@ const discountCodes = {
   TACO20: 20,
 };
 
+const toggleMobileCart = () => {
+  cartElement.classList.toggle('open');
+};
+
 // Scroll to menu when scroll-down button is clicked
 document.querySelector('.scroll-down').addEventListener('click', () => {
   menuElement.scrollIntoView({ behavior: 'smooth' });
 });
 
-// render menu items
+// Render menu items
 const renderMenuItems = sortedItems => {
   const menuItemsByCategory = sortedItems.reduce((acc, item) => {
-    if (!acc[item.category]) {
-      acc[item.category] = [];
-    }
+    if (!acc[item.category]) acc[item.category] = [];
     acc[item.category].push(item);
     return acc;
   }, {});
@@ -99,7 +107,6 @@ const renderMenuItems = sortedItems => {
     });
   });
 
-  // 重新为 add-to-cart 按钮绑定事件监听器
   document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
       const item = menuItems.find(menuItem => menuItem.name === button.dataset.item);
@@ -108,6 +115,7 @@ const renderMenuItems = sortedItems => {
   });
 };
 
+// Render favorites list
 const renderFavorites = () => {
   if (favorites.length === 0) {
     favoritesEmptyMessage.style.display = 'block';
@@ -126,7 +134,6 @@ const renderFavorites = () => {
       .join('');
   }
 
-  // 收藏项中的“加入购物车”按钮事件
   favoriteItemsList.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
       const item = menuItems.find(menuItem => menuItem.name === button.dataset.item);
@@ -135,16 +142,18 @@ const renderFavorites = () => {
   });
 };
 
+// Toggle favorite status
 const toggleFavorite = item => {
   const index = favorites.findIndex(favItem => favItem.name === item.name);
   if (index === -1) {
     favorites.push(item);
   } else {
-    favorites.splice(index, 1); // 如果已经存在，则取消收藏
+    favorites.splice(index, 1);
   }
   renderFavorites();
 };
 
+// Sort and filter menu items
 const getSortedItems = items => {
   const sortOption = sortOptions.value;
   let sortedItems = [...items];
@@ -160,22 +169,22 @@ const getSortedItems = items => {
   return sortedItems;
 };
 
+// Filter menu items based on search input
 const filterMenuItems = () => {
   const searchTerm = searchInput.value.trim().toLowerCase();
   const filteredItems = menuItems.filter(
     item => item.name.toLowerCase().includes(searchTerm) || item.category.toLowerCase().includes(searchTerm)
   );
 
-  // 使用当前排序选项对过滤后的项目进行排序
   const sortedFilteredItems = getSortedItems(filteredItems);
   renderMenuItems(sortedFilteredItems);
 };
 
 searchInput.addEventListener('input', filterMenuItems);
 
-// 根据选择排序菜单
+// Sort menu items when sorting option changes
 const sortMenu = () => {
-  const sortedItems = getSortedItems(menuItems); // 基于当前的排序选项排序原始菜单项
+  const sortedItems = getSortedItems(menuItems);
   renderMenuItems(sortedItems);
 };
 
@@ -185,7 +194,7 @@ const showConfirmationPopup = item => {
   confirmationPopup.style.display = 'block';
 };
 
-// Show extras popup
+// Show extras popup for selected item
 const showExtrasPopup = item => {
   currentItem = item;
   extrasList.innerHTML = item.extras
@@ -201,7 +210,7 @@ const showExtrasPopup = item => {
   document.getElementById('extrasPopup').style.display = 'block';
 };
 
-// Capture selected extras and calculate the total extras cost
+// Get selected extras and calculate total
 const getSelectedExtras = () => {
   const selectedExtras = [];
   const extraCheckboxes = document.querySelectorAll('.extra-option input[type="checkbox"]');
@@ -225,8 +234,7 @@ document.getElementById('addToCartWithExtras').addEventListener('click', () => {
   document.getElementById('extrasPopup').style.display = 'none';
 });
 
-// Add item to cart with selected extras
-// Updated addToCart function to handle extras
+// Add item to cart and update quantities
 const addToCart = (item, extras = []) => {
   let extrasTotal = extras.reduce((sum, extra) => sum + extra.price, 0);
   const existingItem = cart.find(cartItem => cartItem.name === item.name);
@@ -242,7 +250,7 @@ const addToCart = (item, extras = []) => {
   updateEmptyStatus();
 };
 
-// Apply discount code
+// Apply discount code and update cart
 applyDiscount.addEventListener('click', () => {
   const discountInput = document.getElementById('discountCode').value.trim();
   if (discountCodes[discountInput] !== undefined) {
@@ -254,30 +262,54 @@ applyDiscount.addEventListener('click', () => {
     discountMessage.style.color = 'red';
     discountMessage.textContent = 'Invalid discount code.';
   }
-
-  // Update the total amount with the discount
   renderCart();
 });
 
-// Render cart with items and extras total
+// Update cart visibility based on items
+const updateCartVisibility = () => {
+  const isCartEmpty = cart.length === 0;
+
+  // Hide or show cart sidebar on web view
+  if (window.innerWidth > 768) {
+    cartElement.style.display = isCartEmpty ? 'none' : 'block';
+  } else {
+    // Mobile: Show mobile cart button and open cart overlay if not empty
+    document.querySelector('.mobile-cart-button').style.display = isCartEmpty ? 'none' : 'block';
+
+    if (!isCartEmpty) {
+      cartElement.classList.add('open'); // Open cart on mobile when items are added
+    } else {
+      cartElement.classList.remove('open'); // Hide cart on mobile if empty
+    }
+  }
+
+  // Adjust visibility of checkout and discount sections
+  checkoutButton.style.display = isCartEmpty ? 'none' : 'block';
+  extraTotalElement.closest('.cart-summary-item').style.display = isCartEmpty ? 'none' : 'flex';
+  cartTotalElement.style.display = isCartEmpty ? 'none' : 'block';
+  discountSection.style.display = isCartEmpty ? 'none' : 'flex';
+};
+
+// Render cart items and calculate totals
 const renderCart = () => {
+  // Update cart item list in the sidebar cart
   cartItems.innerHTML = cart
     .map(
       item => `
-    <li class="cart-item">
-      <div class="cart-item-details">
-        <span class="cart-item-name">${item.name}</span>
-        <span class="cart-item-price">£${(((item.price + item.extrasTotal) * item.quantity) / 100).toFixed(
-          2
-        )}</span>
-      </div>
-      <div class="cart-item-quantity">
-        <button class="quantity-btn minus-btn" data-item="${item.name}">-</button>
-        <span>x${item.quantity}</span>
-        <button class="quantity-btn plus-btn" data-item="${item.name}">+</button>
-      </div>
-    </li>
-  `
+      <li class="cart-item">
+        <div class="cart-item-row">
+          <span class="cart-item-name">${item.name}</span>
+          <span class="cart-item-price">£${(((item.price + item.extrasTotal) * item.quantity) / 100).toFixed(
+            2
+          )}</span>
+        </div>
+        <div class="cart-item-quantity">
+          <button class="quantity-btn minus-btn" data-item="${item.name}">-</button>
+          <span>x${item.quantity}</span>
+          <button class="quantity-btn plus-btn" data-item="${item.name}">+</button>
+        </div>
+      </li>
+    `
     )
     .join('');
 
@@ -286,24 +318,33 @@ const renderCart = () => {
     0
   );
   const discountedTotal = totalWithoutDiscount * (1 - discountPercentage / 100);
-  cartTotal.textContent = (discountedTotal / 100).toFixed(2);
+  const formattedTotal = `£ ${(discountedTotal / 100).toFixed(2)}`;
+
+  cartTotal.textContent = formattedTotal;
+  extraTotalElement.textContent = `£ ${(extraTotal / 100).toFixed(2)}`;
+
+  // Update mobile cart total
+  document.querySelector('.mobile-cart-total').textContent = formattedTotal;
 
   document.querySelectorAll('.minus-btn').forEach(button => {
     button.addEventListener('click', () => removeFromCart(button.dataset.item));
   });
 
   document.querySelectorAll('.plus-btn').forEach(button => {
-    button.addEventListener('click', () => addToCart(currentItem));
+    button.addEventListener('click', () =>
+      addToCart(menuItems.find(menuItem => menuItem.name === button.dataset.item))
+    );
   });
+
+  updateCartVisibility();
 };
 
-// Function to remove an item from the cart
+// Remove item from cart and update quantities
 const removeFromCart = itemName => {
   const existingItem = cart.find(item => item.name === itemName);
   if (existingItem) {
     if (existingItem.quantity > 1) {
       existingItem.quantity--;
-      // existingItem.extrasTotal -= existingItem.extrasTotal / existingItem.quantity;
     } else {
       cart = cart.filter(item => item.name !== itemName);
     }
@@ -313,13 +354,9 @@ const removeFromCart = itemName => {
   updateEmptyStatus();
 };
 
-// Update cart empty message visibility
+// Update visibility of empty cart message
 const updateEmptyStatus = () => {
-  if (cart.length === 0) {
-    document.querySelector('.cart-empty').style.display = 'block';
-  } else {
-    document.querySelector('.cart-empty').style.display = 'none';
-  }
+  document.querySelector('.cart-empty').style.display = cart.length === 0 ? 'block' : 'none';
 };
 
 // Event listeners for Yes/No buttons in confirmation popup
@@ -329,20 +366,11 @@ yesExtrasButton.addEventListener('click', () => {
 });
 
 noExtrasButton.addEventListener('click', () => {
-  confirmationPopup.style.display = 'none'; // Hide the confirmation popup
-  addToCart(currentItem); // Add to cart without extras
-});
-// Event listener for "Add to Cart" buttons
-document.querySelectorAll('.add-to-cart').forEach(button => {
-  button.addEventListener('click', () => {
-    const item = menuItems.find(menuItem => menuItem.name === button.dataset.item);
-    showConfirmationPopup(item);
-  });
+  confirmationPopup.style.display = 'none';
+  addToCart(currentItem);
 });
 
-sortOptions.addEventListener('change', sortMenu);
-
-// 初始渲染菜单
+// Initialize the menu
 document.addEventListener('DOMContentLoaded', () => {
-  sortMenu(); // Initial render
+  sortMenu();
 });

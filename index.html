@@ -6,7 +6,6 @@
     <title>Taco Box</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="css/style.css" />
-    <script src="js/menu.js"></script>
   </head>
   <body>
     <!-- welcome -->
@@ -19,25 +18,31 @@
     <!-- menu -->
     <div class="container">
       <div class="cart">
-        <h2>Cart</h2>
+        <h2>Basket</h2>
         <ul class="cart-items"></ul>
         <p class="cart-empty">Your cart is empty. Start adding some delicious tacos!</p>
+
+        <div class="cart-summary-item">
+          <span>Extra Total</span>
+          <span id="extraTotal">£ 0.00</span>
+        </div>
         <p class="cart-total">
-          Total: £
-          <span>0.00</span>
+          Total:
+          <span>£ 0.00</span>
         </p>
+        <!-- Checkout Button -->
+        <button class="checkout-button">Checkout</button>
         <div class="discount-section">
           <input type="text" id="discountCode" placeholder="Enter discount code" />
           <button id="applyDiscount">Apply Discount</button>
           <p id="discountMessage"></p>
-          <!-- Message to show discount status -->
         </div>
       </div>
 
       <div class="favorites">
         <h2>Favorites</h2>
         <ul class="favorite-items"></ul>
-        <p class="favorites-empty">No favorites yet. Add some tacos you love!</p>
+        <p class="favorites-empty">No favorites yet. Add some dishes you love!</p>
       </div>
 
       <!-- Controls Section -->
@@ -58,7 +63,7 @@
       <div class="menu"></div>
     </div>
 
-    <!-- extras popup -->
+    <!-- confirm popup -->
     <div class="popup" id="confirmationPopup">
       <div class="popup-content">
         <h3>Would you like to add any extras?</h3>
@@ -67,6 +72,7 @@
       </div>
     </div>
 
+    <!-- extras popup -->
     <div class="popup" id="extrasPopup">
       <div class="popup-content">
         <h3>Select Extras</h3>
@@ -75,6 +81,17 @@
       </div>
     </div>
 
+    <!-- Mobile Cart Button -->
+    <div class="mobile-cart-button">
+      <button class="mobile-cart-btn" onclick="toggleMobileCart()">
+        <span class="cart-icon">🛒</span>
+        Basket (
+        <span class="mobile-cart-total">£0.00</span>
+        )
+      </button>
+    </div>
+
+    <script src="js/menu.js"></script>
     <script src="js/index.js"></script>
   </body>
 </html>
