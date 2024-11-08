@@ -101,7 +101,7 @@ html {
   font-weight: bold;
 }
 
-/* Menu Item Styling */
+/* Menu Item Section */
 .menu-item {
   display: flex;
   padding: 20px;
@@ -135,7 +135,8 @@ html {
   margin-bottom: 5px;
 }
 
-.menu-item .price {
+.menu-item .price,
+.favorite-item .price {
   font-weight: bold;
   font-size: 1.2rem;
   color: #e74c3c;
@@ -156,6 +157,11 @@ html {
 
 .favorite-btn,
 .add-to-cart {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #e0e0e0;
   color: #333;
   border: none;
@@ -173,7 +179,7 @@ html {
 }
 
 .favorite-btn.favorited {
-  background-color: #ffd700;
+  background-color: #ff6200;
   color: #fff;
 }
 
@@ -186,7 +192,7 @@ html {
   background-color: #ffa500;
 }
 
-/* Extras Styling */
+/* Extras Section */
 .extras {
   list-style: none;
   padding: 0;
@@ -207,6 +213,29 @@ html {
 
 .extra-price {
   color: #888;
+}
+
+/* Popup Extras */
+.extras-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px;
+}
+
+.extra-option {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+
+.extra-option input {
+  margin-right: 10px;
 }
 
 /* Cart and Favorites Layout */
@@ -245,43 +274,6 @@ html {
   font-style: italic;
 }
 
-/* Popup */
-.popup {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.popup-content {
-  background-color: #fefefe;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
-  margin: 15% auto;
-  text-align: center;
-}
-
-.popup-content button {
-  background-color: #ffd700;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin: 10px;
-}
-
-.popup-content button:hover {
-  background-color: #ffa500;
-}
-
 /* Controls Section */
 .controls-section {
   display: flex;
@@ -316,7 +308,7 @@ html {
 .cart {
   position: fixed;
   top: 0;
-  right: 0; /* Show on the right by default */
+  right: -100%;
   width: 350px;
   height: 100vh;
   background-color: #fff;
@@ -325,7 +317,10 @@ html {
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease;
   z-index: 1000;
-  display: none; /* Ensure it's displayed on web */
+}
+
+.cart.open {
+  right: 0;
 }
 
 .cart h2 {
@@ -349,6 +344,21 @@ html {
   flex-direction: column;
   padding: 10px 0;
   border-bottom: 1px solid #eee;
+}
+
+.cart-item-extras {
+  margin-left: 20px;
+  color: #555;
+
+  font-size: 0.9rem;
+}
+
+.cart-item-extra {
+  display: inline-block;
+  margin: 5px 4px;
+  background-color: #f0f0f0;
+  padding: 2px 5px;
+  border-radius: 4px;
 }
 
 .cart-item-row {
@@ -406,6 +416,7 @@ html {
 
 .cart-summary-item span {
   font-weight: lighter;
+  color: #555;
 }
 
 .cart-total,
@@ -428,6 +439,7 @@ html {
 }
 
 .checkout-button {
+  display: block;
   margin: 0 auto;
   background-color: #ffd700;
   color: #fff;
@@ -446,21 +458,23 @@ html {
   background-color: #ffa500;
 }
 
+/* Discount Section */
 .discount-section {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-top: 20px;
   padding-top: 10px;
-  border-top: 1px solid #ddd;
 }
 
 .discount-section input {
-  width: 80%;
+  flex: 1;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .discount-section button {
@@ -484,30 +498,112 @@ html {
   margin-top: 10px;
 }
 
-.mobile-cart-button {
-  display: none; /* Hide on web by default */
-}
-
-.mobile-cart-btn {
-  display: flex;
-  align-items: center;
+/* Popup */
+.popup {
+  display: none;
   justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
   width: 100%;
-  padding: 15px;
-  background-color: #ff6200;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.popup-content button {
+  background-color: #ffd700;
   color: #fff;
-  font-weight: bold;
-  font-size: 1.1rem;
   border: none;
-  border-radius: 0;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
+  margin: 10px;
 }
 
-.mobile-cart-btn .cart-icon {
-  margin-right: 10px;
+.popup-content button:hover {
+  background-color: #ffa500;
 }
 
-/* Responsive Design */
+/* float cart section */
+.floating-cart {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: #ffa500;
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.cart-item-count {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: -5px;
+  left: -5px;
+  background-color: black;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 12px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.floating-cart .float-cart-icon {
+  font-size: 1.5rem;
+}
+
+.footer {
+  background-color: #ff8c00; /* 橙色背景 */
+  color: #fff; /* 白色文字 */
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+}
+
+.footer-links {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer p {
+  margin: 5px 0;
+}
+
+.footer span {
+  font-weight: bold;
+  color: #fff;
+}
+
 @media (max-width: 768px) {
   .menu-item {
     flex-direction: column;
@@ -521,6 +617,14 @@ html {
 
   .menu-item-content {
     align-items: center;
+  }
+
+  .menu-item-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 
   .controls-section {
@@ -537,27 +641,13 @@ html {
     width: 100%;
   }
 
+  .cart {
+    width: 100%;
+  }
+
   .cart,
   .favorites {
     margin-bottom: 20px;
-  }
-
-  .cart {
-    right: -100%; /* Hide cart by moving it off-screen on mobile */
-    display: block; /* Ensure cart is block-level */
-  }
-
-  .cart.open {
-    right: 0; /* Bring cart back into view when open */
-    width: 100%; /* Full-width on mobile when open */
-  }
-
-  .mobile-cart-button {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
   }
 }
 
@@ -579,8 +669,7 @@ html {
   }
 
   .sort-controls,
-  .search-bar,
-  .discount-section {
+  .search-bar {
     flex-direction: column;
     width: 100%;
   }

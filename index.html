@@ -22,21 +22,30 @@
         <ul class="cart-items"></ul>
         <p class="cart-empty">Your cart is empty. Start adding some delicious tacos!</p>
 
+        <!-- extra total -->
         <div class="cart-summary-item">
           <span>Extra Total</span>
           <span id="extraTotal">£ 0.00</span>
         </div>
+        <!-- total -->
         <p class="cart-total">
-          Total:
-          <span>£ 0.00</span>
+          <span>Total:</span>
+          <span class="summaryTotal">£ 0.00</span>
         </p>
-        <!-- Checkout Button -->
-        <button class="checkout-button">Checkout</button>
+
+        <!-- apply discount -->
         <div class="discount-section">
           <input type="text" id="discountCode" placeholder="Enter discount code" />
-          <button id="applyDiscount">Apply Discount</button>
-          <p id="discountMessage"></p>
+          <button id="applyDiscount">Apply</button>
+          <!-- status msg -->
         </div>
+        <p id="discountMessage"></p>
+
+        <button class="checkout-button">
+          Checkout (
+          <span class="summaryTotal">£ 0.00</span>
+          )
+        </button>
       </div>
 
       <div class="favorites">
@@ -45,16 +54,19 @@
         <p class="favorites-empty">No favorites yet. Add some dishes you love!</p>
       </div>
 
-      <!-- Controls Section -->
+      <!-- controls section -->
       <div class="controls-section">
+        <!-- sort -->
         <div class="sort-controls">
           <label for="sortOptions">Sort by:</label>
+
           <select id="sortOptions">
-            <option value="category">Category</option>
+            <option value="nameAsc">Name: A to Z</option>
             <option value="priceAsc">Price: Low to High</option>
             <option value="priceDesc">Price: High to Low</option>
           </select>
         </div>
+        <!-- search -->
         <div class="search-bar">
           <input type="text" id="searchInput" placeholder="Search for tacos by name or category..." />
         </div>
@@ -62,6 +74,26 @@
 
       <div class="menu"></div>
     </div>
+
+    <!-- footer -->
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="#">Site Map</a>
+        |
+        <a href="#">Privacy Policy</a>
+        |
+        <a href="#">Cookie Policy</a>
+        |
+        <a href="#">Terms & Conditions</a>
+        |
+        <a href="#">Contact Us</a>
+      </div>
+      <p>&copy; 2024 The Taco Box. All rights reserved.</p>
+      <p>
+        Web Design By
+        <span>@Huccct</span>
+      </p>
+    </footer>
 
     <!-- confirm popup -->
     <div class="popup" id="confirmationPopup">
@@ -81,14 +113,10 @@
       </div>
     </div>
 
-    <!-- Mobile Cart Button -->
-    <div class="mobile-cart-button">
-      <button class="mobile-cart-btn" onclick="toggleMobileCart()">
-        <span class="cart-icon">🛒</span>
-        Basket (
-        <span class="mobile-cart-total">£0.00</span>
-        )
-      </button>
+    <!-- floating cart -->
+    <div class="floating-cart" onclick="toggleCart()">
+      <span class="float-cart-icon">&#128722;</span>
+      <span class="cart-item-count">0</span>
     </div>
 
     <script src="js/menu.js"></script>
