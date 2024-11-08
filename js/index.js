@@ -120,38 +120,35 @@ const renderMenuItems = sortedItems => {
 };
 
 /**
+ * Render cart item.
+ * @param {Object} item - cart item
+ * @param {number} index - index of the item
+ */
+const renderCartItem = (item, index) => `
+  <li class="cart-item">
+    <div class="cart-item-row">
+      <span class="cart-item-name">${item.name}</span>
+      <span class="cart-item-price">£${(
+        ((item.price + item.extras.reduce((sum, extra) => sum + extra.price, 0)) * item.quantity) / 100
+      ).toFixed(2)}</span>
+      <button class="remove-btn" data-item-id="${index}">&#128465;</button>
+    </div>
+    <div class="cart-item-extras">
+      ${item.extras.map(extra => `<span class="cart-item-extra">- ${extra.name} (£${(extra.price / 100).toFixed(2)})</span>`).join(', ')}
+    </div>
+    <div class="cart-item-quantity">
+      <button class="quantity-btn minus-btn" data-item-id="${index}">-</button>
+      <span>x${item.quantity}</span>
+      <button class="quantity-btn plus-btn" data-item-id="${index}">+</button>
+    </div>
+  </li>
+`;
+
+/**
  * Render cart.
  */
 const renderCart = () => {
-  cartItems.innerHTML = cart
-    .map(
-      item => `
-      <li class="cart-item">
-        <div class="cart-item-row">
-          <span class="cart-item-name">${item.name}</span>
-          <span class="cart-item-price">£${(
-            ((item.price + item.extras.reduce((sum, extra) => sum + extra.price, 0)) * item.quantity) /
-            100
-          ).toFixed(2)}</span>
-          <button class="remove-btn" data-item-id="${cart.indexOf(item)}">&#128465;</button>
-        </div>
-        <div class="cart-item-extras">
-          ${item.extras
-            .map(
-              extra =>
-                `<span class="cart-item-extra">- ${extra.name} (£${(extra.price / 100).toFixed(2)})</span>`
-            )
-            .join(', ')}
-        </div>
-        <div class="cart-item-quantity">
-          <button class="quantity-btn minus-btn" data-item-id="${cart.indexOf(item)}">-</button>
-          <span>x${item.quantity}</span>
-          <button class="quantity-btn plus-btn" data-item-id="${cart.indexOf(item)}">+</button>
-        </div>
-      </li>
-    `
-    )
-    .join('');
+ cartItems.innerHTML = cart.map((item, index) => renderCartItem(item, index)).join('');
   const totalWithoutDiscount = cart.reduce(
     (acc, item) =>
       acc + (item.price + item.extras.reduce((sum, extra) => sum + extra.price, 0)) * item.quantity,
