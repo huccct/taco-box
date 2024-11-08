@@ -128,9 +128,10 @@ const renderCart = () => {
       <li class="cart-item">
         <div class="cart-item-row">
           <span class="cart-item-name">${item.name}</span>
-          <span class="cart-item-price">£${(((item.price + item.extrasTotal) * item.quantity) / 100).toFixed(
-            2
-          )}</span>
+          <span class="cart-item-price">£${(
+            ((item.price + item.extras.reduce((sum, extra) => sum + extra.price, 0)) * item.quantity) /
+            100
+          ).toFixed(2)}</span>
         </div>
         <div class="cart-item-extras">
           ${item.extras
@@ -150,7 +151,8 @@ const renderCart = () => {
     )
     .join('');
   const totalWithoutDiscount = cart.reduce(
-    (acc, item) => acc + (item.price + item.extrasTotal) * item.quantity,
+    (acc, item) =>
+      acc + (item.price + item.extras.reduce((sum, extra) => sum + extra.price, 0)) * item.quantity,
     0
   );
 
@@ -171,7 +173,7 @@ const renderCart = () => {
     cartSum.style.display = 'flex';
     checkoutBtn.style.display = 'block';
     discountSection.style.display = 'flex';
-    cartTotal.style.display = 'block';
+    cartTotal.style.display = 'flex';
     cartEmpty.style.display = 'none';
     cartTotalArr.forEach(cartTotal => {
       cartTotal.textContent = `£ ${(discountedTotal / 100).toFixed(2)}`;
@@ -392,6 +394,7 @@ document.querySelector('#addToCartWithExtras').addEventListener('click', () => {
   const selectedExtras = getSelectedExtras();
   addToCart(currentItem, selectedExtras);
   extrasPopup.style.display = 'none';
+  document.body.style.overflow = 'auto';
 });
 
 /**
