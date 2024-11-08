@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://*; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://*; script-src 'self' https://vercel.live 'nonce-uniqueNonceValue'; style-src 'self' 'nonce-uniqueNonceValue';">
     <title>Taco Box</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
@@ -79,20 +79,22 @@
     <!-- footer -->
     <footer class="footer">
       <div class="footer-links">
-        <a href="#">Site Map</a>
+        <a href="javascript:void(0);">Site Map</a>
         |
-        <a href="#">Privacy Policy</a>
+        <a href="javascript:void(0);">Privacy Policy</a>
         |
-        <a href="#">Cookie Policy</a>
+        <a href="javascript:void(0);">Cookie Policy</a>
         |
-        <a href="#">Terms & Conditions</a>
+        <a href="javascript:void(0);">Terms & Conditions</a>
         |
-        <a href="#">Contact Us</a>
+        <a href="javascript:void(0);">Contact Us</a>
       </div>
       <p>&copy; 2024 The Taco Box. All rights reserved.</p>
       <p>
         Web Design By
-        <span>@Huccct</span>
+        <span>
+          <a href="https://github.com/huccct">@Huccct</a>
+        </span>
       </p>
       <p>
         <a href="https://validator.w3.org/check?uri=https://taco-box.vercel.app/">
