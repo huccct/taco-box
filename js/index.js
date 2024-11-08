@@ -443,6 +443,15 @@ const toggleCart = () => {
   }
 };
 
+// Add event listener to reset discount when discount code is cleared or changed
+discountCode.addEventListener('input', () => {
+  if (discountCode.value.trim() === '') {
+    discountPercentage = 0;
+    discountMessage.textContent = '';
+    renderCart();
+  }
+});
+
 sortOptions.addEventListener('change', sortMenu);
 
 document.addEventListener('DOMContentLoaded', sortMenu);
