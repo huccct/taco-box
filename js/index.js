@@ -170,6 +170,8 @@ const renderCart = () => {
     discountSection.style.display = 'none';
     cartTotal.style.display = 'none';
     cartEmpty.style.display = 'block';
+    discountMessage.textContent = '';
+    discountCode.value = '';
   } else {
     cartSum.style.display = 'flex';
     checkoutBtn.style.display = 'block';
