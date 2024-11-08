@@ -63,8 +63,8 @@ const renderMenuItems = sortedItems => {
               <h3>${item.name}</h3>
               <p class="price">£${(item.price / 100).toFixed(2)}</p>
               <p class="description">${item.description}</p>
+              <b>Extras:</b>
               <ul class="extras">
-                <b>Extras:</b>
                 ${item.extras
                   .map(
                     extra => `
