@@ -132,6 +132,7 @@ const renderCart = () => {
             ((item.price + item.extras.reduce((sum, extra) => sum + extra.price, 0)) * item.quantity) /
             100
           ).toFixed(2)}</span>
+          <button class="remove-btn" data-item-id="${cart.indexOf(item)}">&#128465;</button>
         </div>
         <div class="cart-item-extras">
           ${item.extras
@@ -187,6 +188,14 @@ const renderCart = () => {
   document.querySelectorAll('.plus-btn').forEach(button => {
     const item = cart[parseInt(button.dataset.itemId)];
     button.addEventListener('click', () => addToCart(item, item.extras));
+  });
+
+  document.querySelectorAll('.remove-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const itemId = parseInt(button.dataset.itemId);
+      cart.splice(itemId, 1);
+      renderCart();
+    });
   });
 };
 
