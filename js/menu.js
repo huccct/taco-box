@@ -1,6 +1,5 @@
 const menuItems = [
   {
-    id: 1,
     name: 'Veggie Nachos',
     price: 699, // 6.99 GBP
     category: 'Side',
@@ -14,7 +13,6 @@ const menuItems = [
     ],
   },
   {
-    id: 2,
     name: 'Free Range Chicken & Avocado Tacos',
     price: 449, // 4.49 GBP
     category: 'Taco',
@@ -28,7 +26,6 @@ const menuItems = [
     ],
   },
   {
-    id: 3,
     name: 'Ancho Mushroom Tacos',
     price: 399, // 3.99 GBP
     category: 'Taco',
@@ -41,7 +38,6 @@ const menuItems = [
     ],
   },
   {
-    id: 4,
     name: 'Sustainable Battered Fish Tacos',
     price: 549, // 5.49 GBP
     category: 'Taco',
@@ -54,7 +50,6 @@ const menuItems = [
     ],
   },
   {
-    id: 5,
     name: 'Black Bean & Three Cheeses Quesadillas',
     price: 499, // 4.99 GBP
     category: 'Side',
@@ -67,7 +62,6 @@ const menuItems = [
     ],
   },
   {
-    id: 6,
     name: 'Horchata',
     price: 249, // 2.49 GBP
     category: 'Drink',

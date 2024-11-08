@@ -220,7 +220,7 @@ const addToCart = (item, extras = []) => {
     extraTotalElement.textContent = `£ ${(existingItem.extrasTotal / 100).toFixed(2)} `;
   } else {
     const extrasTotal = extras.reduce((sum, extra) => sum + extra.price, 0);
-    cart.push({ id: item.id, name: item.name, price: item.price, quantity: 1, extras, extrasTotal });
+    cart.push({ name: item.name, price: item.price, quantity: 1, extras, extrasTotal });
   }
 
   const cartExtrasTotal = cart.reduce((sum, item) => sum + item.extrasTotal, 0);
@@ -312,7 +312,6 @@ const renderFavorites = () => {
  */
 const toggleFavorite = item => {
   const index = favorites.findIndex(favItem => favItem.name === item.name);
-  console.log('index', index);
   if (index === -1) {
     favorites.push(item);
   } else {
