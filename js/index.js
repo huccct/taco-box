@@ -194,6 +194,8 @@ const renderCart = () => {
     button.addEventListener('click', () => {
       const itemId = parseInt(button.dataset.itemId);
       cart.splice(itemId, 1);
+      const cartExtrasTotal = cart.reduce((sum, item) => sum + item.extrasTotal, 0);
+      extraTotalElement.textContent = `£ ${(cartExtrasTotal / 100).toFixed(2)}`;
       renderCart();
     });
   });
