@@ -1,3 +1,4 @@
+'use strict';
 const menuElement = document.querySelector('.menu');
 const cartElement = document.querySelector('.cart');
 const cartEmpty = document.querySelector('.cart-empty');
